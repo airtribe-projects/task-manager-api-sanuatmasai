@@ -1,17 +1,20 @@
 const express = require('express');
+const { GetAllTasks, GetTaskById, CreateNewTask, UpdateTask, DeleteTask, GetTasksByPriority } = require('./Controllers/TaskController');
 const app = express();
-const port = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.listen(port, (err) => {
-    if (err) {
-        return console.log('Something bad happened', err);
-    }
-    console.log(`Server is listening on ${port}`);
-});
+app.get('/tasks', GetAllTasks)
 
+app.get('/tasks/:id', GetTaskById)
 
+app.post('/tasks', CreateNewTask)
+
+app.put('/tasks/:id', UpdateTask)
+
+app.delete('/tasks/:id', DeleteTask)
+
+app.get('/tasks/priority/:level', GetTasksByPriority)
 
 module.exports = app;
